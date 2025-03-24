@@ -16,7 +16,14 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static frontend files from the "public" directory
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.static(__dirname)); // Serve static files from the root
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 
 // Initialize Gemini AI using the API key from the environment
 const apiKey = process.env.GEMINI_API_KEY;
